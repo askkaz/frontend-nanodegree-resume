@@ -29,6 +29,18 @@ var projects = {
 	]
 };
 
+projects.display = function(){
+	for(project in projects.projects){
+		$("#projects").append(HTMLprojectStart);
+		var formattedTitle=HTMLprojectTitle.replace("%data%",projects.projects[project].title);
+		var formattedDates=HTMLprojectDates.replace("%data%",projects.projects[project].dates);
+		var formattedDescription=HTMLprojectDescription.replace("%data%",projects.projects[project].description);
+		var formattedImages=HTMLprojectImage.replace("%data%",projects.projects[project].images);
+		$(".project-entry:last").append( formattedTitle +formattedDates+formattedDescription+formattedImages);
+	}
+};
+
+projects.display();
 var work = {
 	"jobs" : [
 	{
@@ -84,3 +96,43 @@ var education = {
 	]
 };
 
+if(bio.skills.length > 0) {
+	$("#header").append(HTMLskillsStart);
+	var formattedSkill=HTMLskills.replace("%data%",bio.skills);
+	console.log(formattedSkill);
+	$("#skills").append(formattedSkill);
+}
+
+var formattedName=HTMLheaderName.replace("%data%","Adam Kaczmarek");
+$("#header").prepend(formattedName);
+
+var displayWork = function(){
+	for(job in work.jobs){
+		$("#workExperience").append(HTMLworkStart);
+		var formattedEmployer=HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
+		var formattedTitle=HTMLworkTitle.replace("%data%",work.jobs[job].title);
+		var formattedLocation=HTMLworkLocation.replace("%data%",work.jobs[job].location);
+		var formattedDates=HTMLworkDates.replace("%data%",work.jobs[job].dates);
+		var formattedDescription=HTMLworkDescription.replace("%data%",work.jobs[job].description);
+		$(".work-entry:last").append(formattedEmployer + formattedTitle + formattedLocation+formattedDates+formattedDescription);
+	}
+}
+
+displayWork();
+
+var inName = function(name){
+	names=name.split(" ");
+	return (names[0]+" "+names[1].toUpperCase());
+};
+
+$("#main").append(internationalizeButton);
+
+$(document).click(function(loc) {
+	var x = loc.pageX;
+	var y = loc.pageY;
+	logClicks(x,y);
+});
+
+console.log(inName("sebastian thrun"))
+
+$("#mapDiv").append(googleMap);
